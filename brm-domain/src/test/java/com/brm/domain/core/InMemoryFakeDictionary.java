@@ -1,4 +1,4 @@
-package com.brm.infrastructure.adapters;
+package com.brm.domain.core;
 
 import com.brm.domain.core.ports.DictionaryPort;
 import com.brm.domain.core.vo.Word;

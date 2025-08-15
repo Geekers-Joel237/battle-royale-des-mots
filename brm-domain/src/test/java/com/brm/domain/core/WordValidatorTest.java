@@ -3,7 +3,6 @@ package com.brm.domain.core;
 import com.brm.domain.core.ports.DictionaryPort;
 import com.brm.domain.core.service.WordValidator;
 import com.brm.domain.core.vo.Word;
-import com.brm.infrastructure.adapters.InMemoryFakeDictionary;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
