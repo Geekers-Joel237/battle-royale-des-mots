@@ -11,8 +11,8 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("com.brm.brmclient")
-    mainClass.set("com.brm.brmclient.HelloApplication")
+    mainModule.set("com.brm.client")
+    mainClass.set("com.brm.client.GameApplication")
 }
 
 javafx {
@@ -22,6 +22,7 @@ javafx {
 
 dependencies {
     implementation(project(":brm-contracts"))
+    implementation(project(":brm-domain"))
 }
 
 jlink {

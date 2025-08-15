@@ -3,7 +3,7 @@ package com.brm.domain.application.usecases;
 import com.brm.domain.core.vo.LettersPool;
 
 public sealed interface SubmitWordResult {
-    public enum Reason {
+    enum Reason {
         TOO_SHORT,
         NOT_IN_DICTIONARY,
         LETTERS_NOT_AVAILABLE,

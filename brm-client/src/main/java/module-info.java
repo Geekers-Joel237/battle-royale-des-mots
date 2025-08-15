@@ -1,8 +1,9 @@
-module com.brm.brmclient {
+module com.brm.client {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.brm.domain;
 
 
-    opens com.brm.brmclient to javafx.fxml;
-    exports com.brm.brmclient;
+    opens com.brm.client to javafx.fxml;
+    exports com.brm.client;
 }

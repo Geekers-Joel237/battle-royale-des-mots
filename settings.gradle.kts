@@ -8,7 +8,7 @@ include(
     "brm-tools"
 )
 include("brm-domain")
-include("brm-client")
 include("brm-tools")
 include("brm-contracts")
 include("brm-server")
+include("brm-client")
