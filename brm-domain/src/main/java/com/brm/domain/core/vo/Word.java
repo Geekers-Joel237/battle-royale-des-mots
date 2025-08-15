@@ -9,7 +9,7 @@ public final class Word {
     public static final int MIN_LENGTH = 2;
     private final String value;
 
-    public Word(String rawWord) {
+    public Word(String rawWord) throws IllegalArgumentException {
         this.value = this.normalized(rawWord);
     }
 
