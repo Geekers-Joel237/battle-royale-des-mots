@@ -5,13 +5,17 @@ import com.brm.domain.application.usecases.SubmitWordCommand;
 import com.brm.domain.application.usecases.SubmitWordResult;
 import com.brm.domain.application.usecases.SubmitWordUseCase;
 import com.brm.domain.core.ports.DictionaryPort;
+import com.brm.domain.core.service.LetterStreamGenerator;
 import com.brm.domain.core.service.ScoringService;
 import com.brm.domain.core.service.WordValidator;
 import com.brm.domain.core.vo.LettersPool;
 import com.brm.domain.core.vo.Word;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,6 +36,10 @@ public class GameController {
     private LettersPool currentPool;
     private int score = 0;
 
+
+    // --- AJOUTS POUR LE FLUX DYNAMIQUE ---
+    private LetterStreamGenerator letterStreamGenerator;
+
     // --- Initialisation ---
     @FXML
     public void initialize() {
@@ -43,10 +51,28 @@ public class GameController {
         ScoringService scoringService = new ScoringService();
         this.useCase = new SubmitWordUseCase(wordValidator, scoringService);
 
-        // On crée le premier pool de lettres
-        this.currentPool = new LettersPool(Map.of('B', 1, 'T', 1, 'N', 1, 'J', 1, 'O', 1, 'U', 1, 'R', 2));
+
+        // --- Initialisation du générateur de lettres ---
+        this.letterStreamGenerator = new LetterStreamGenerator(System.currentTimeMillis());
+        // On commence avec un pool de lettres vide
+        this.currentPool = new LettersPool(Map.of());
+
+        // --- DÉMARRAGE DE LA BOUCLE DE JEU ---
+        setupGameLoop();
         updateUI();
 
+    }
+
+    private void setupGameLoop() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.2), event -> {
+            if (this.currentPool.getCurrentPool().size() < 20) {
+                char newLetter = this.letterStreamGenerator.nextLetter();
+                this.currentPool = this.currentPool.addLetter(newLetter);
+                updateUI();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     @FXML
@@ -71,6 +97,7 @@ public class GameController {
 
         updateUI();
         this.wordInputField.clear();
+        this.wordInputField.requestFocus();
     }
 
     private void updateUI() {

@@ -41,4 +41,13 @@ public final class LettersPool {
     public Map<Character, Integer> getCurrentPool() {
         return this.currentPool;
     }
+
+    public LettersPool addLetter(char letter) {
+        Map<Character, Integer> newPool = new HashMap<>(this.currentPool);
+        newPool.merge(Character.toLowerCase(letter), 1, Integer::sum);
+        return new LettersPool(newPool);
+
+    }
+
+
 }

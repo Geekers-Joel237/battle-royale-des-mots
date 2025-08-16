@@ -64,4 +64,14 @@ public class LettersPoolTest {
 
         assertThat(newPool.getCurrentPool()).containsExactlyInAnyOrderEntriesOf(initialPool.getCurrentPool());
     }
+
+    @Test
+    @DisplayName("Should return a new pool when add new letter")
+    void shouldReturnNewPoolAfterAddingNewLetter() {
+        var initialPool = new LettersPool(Map.of('B', 1, 'O', 2, 'N', 1, 'J', 1, 'U', 1, 'R', 1));
+        var newPool = initialPool.addLetter('p');
+
+        assertThat(newPool.getCurrentPool()).containsAllEntriesOf(initialPool.getCurrentPool());
+        assertThat(newPool.getCurrentPool()).containsEntry('p', 1);
+    }
 }
